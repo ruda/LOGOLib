@@ -1,0 +1,4 @@
+LOGO Library is Public Domain.
+
+All of the code and documentation has been dedicated to the public
+domain by Rudá Moura.

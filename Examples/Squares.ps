@@ -1,0 +1,112 @@
+%!PS-Adobe-3.0
+%
+% LOGO library by Ruda Moura (Public Domain)
+% July 3, 2018
+%
+
+% num inch num
+% Convert from inches to points
+/inch {72 mul} def
+
+% num cm num
+% Convert from cms to points
+/cm {28.346456693 mul} def
+
+% Maximum integer (2^32-1)
+/maxint 16#7FFFFFFF def
+
+% - urand real
+% Return a uniform random number from [0, 1]
+/urand {rand maxint div} def
+
+% int random int
+% Return a random integer from [0, num)
+/random {rand exch mod} def
+
+% - setrandomgraycolor -
+% Select a random gray color to draw
+/setrandomgraycolor {urand setgray} def
+
+% - setrandomcolor -
+% Select a random color to draw
+/setrandomcolor {urand urand urand setrgbcolor} def
+
+% - setrandomlinewidth -
+% Select a random line width to draw
+/setrandomlinewidth {urand setlinewidth} def
+
+% - setrandomposition -
+% Move "turtle" to a random position
+/setrandomposition {9 inch random 11 inch random moveto} def
+
+% x y setxy -
+% Position "turtle" to x y
+/setxy {moveto} bind def
+
+% - home -
+% Move "turtle" to the home position (the middle of the page)
+/home {newpath 4 inch 5 inch moveto} bind def
+
+% n forward -
+% Move "turtle" forward by 'n' positions
+/forward {
+	0 exch userdict (draw) get
+	{rlineto currentpoint stroke newpath moveto} {rmoveto} ifelse
+} bind def
+
+% n backward -
+% Move "turtle" backward by 'n' positions
+/backward {neg forward} bind def
+
+% angle right -
+% Rotate "turtle" to the right bindy 'angle' degrees
+/right {neg rotate} bind def
+
+% angle left -
+% Rotate "turtle" to the left by 'angle' degrees
+/left {rotate} bind def
+
+% - penup -
+% Set pen up
+/penup {userdict (draw) false put} bind def
+
+% - pendown -
+% Set pen down
+/pendown {userdict (draw) true put} bind def
+
+% - showturle -
+% Show "turtle"
+/showturtle {userdict (turtle) true put} bind def
+
+% - hideturtle -
+% Hide "turtle"
+/hideturtle {userdict (turtle) false put} bind def
+
+% Abbreviations
+/fd {forward}    bind def
+/bd {backward}   bind def
+/rt {right}      bind def
+/lt {left}       bind def
+/pu {penup}      bind def
+/pd {pendown}    bind def
+/st {showturtle} bind def
+/ht {hideturtle} bind def
+
+% Initialize
+home
+pendown
+showturtle
+
+% End of LOGO Library
+
+% to square :size
+% repeat 4 [forward :size right 90]
+% end
+% repeat 100 [set-random-position square]
+
+/square {
+	4 {dup forward 90 right} repeat pop
+} def
+100 {setrandomposition setrandomcolor 50 random square} repeat
+
+showpage
